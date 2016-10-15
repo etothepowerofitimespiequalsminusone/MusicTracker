@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/','PagesController@getIndex');
+Route::get('leaked','PagesController@getLeaked');
