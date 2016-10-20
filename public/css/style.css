@@ -43,6 +43,15 @@ button{
 .navbar-default li:hover{
     background-color: white;
 }
+
+.dropdown-menu{
+    background-color: #212121;
+}
+.table-background{
+    background-color: white;
+}
+
+
 .panel{
     /*background-color: #212121;*/
     background-color: white;
@@ -98,6 +107,6 @@ img
 {
   flex: 1;
 }
-  
+
 
 

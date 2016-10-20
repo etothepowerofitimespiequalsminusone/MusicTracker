@@ -1,5 +1,7 @@
 @extends('base')
 @section('content')
+        <div class="panel panel-default">
+            <div class="panel-body">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec placerat augue. In rutrum sem ac viverra fringilla. Aenean congue odio eu ligula feugiat, et mollis nunc elementum. Nullam eleifend ante at est egestas, semper faucibus libero venenatis. Nam rhoncus augue nec eros gravida rutrum. Integer venenatis scelerisque finibus. In ullamcorper felis dolor, vitae cursus quam molestie in. Curabitur et felis sit amet sem rhoncus laoreet. Praesent rutrum porttitor libero vitae volutpat. Ut sed nibh a nibh pharetra aliquam eget vitae lorem.
                     Morbi vitae ex cursus, feugiat augue id, auctor lorem. Proin blandit sit amet felis ac mollis. Nulla facilisi. Pellentesque a ex urna. Donec nisi nulla, mollis vel porttitor non, rutrum vel erat. Pellentesque vitae sem hendrerit est pharetra suscipit. Duis sagittis sagittis lectus sit amet rhoncus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis vitae mauris ante. Proin risus justo, congue vel neque id, gravida cursus quam. Vestibulum iaculis consequat velit, nec commodo nunc pharetra id. Integer ut mi mattis, tincidunt odio ut, fermentum mi. Phasellus pharetra et enim ac efficitur. Praesent et diam risus. Proin consequat tellus ipsum, vel rhoncus purus commodo vel. Sed risus sapien, pretium quis ante ac, euismod posuere ipsum.

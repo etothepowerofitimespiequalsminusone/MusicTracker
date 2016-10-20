@@ -8,6 +8,10 @@ class PagesController extends Controller
     public function getIndex(){
         return view('pages.index');
     }
+
+    public function getArticles(){
+        return view('pages.articles');
+    }
     public function getLeaked(){
 
         $title = $this->getXmlData();
@@ -16,8 +20,7 @@ class PagesController extends Controller
     }
 
 
-    public function getXmlData()
-    {
+    public function getXmlData(){
         //this is the 'coming soon' rss feedback
         $coming_soon = 'http://hasitleaked.com/feed/';
         //this is the leaked album rss feed
@@ -26,6 +29,10 @@ class PagesController extends Controller
         $xml = @simplexml_load_file($leaked);
         $title = $xml->channel->title;
         $item = $xml->channel->item;
+
+        $lastbuilddate = $xml->channel->lastbuilddate;
+
+        echo strtotime($lastbuilddate);
 
         $albumnames = array();
 

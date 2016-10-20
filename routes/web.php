@@ -16,3 +16,6 @@ Route::get('/', function () {
 });
 Route::get('/','PagesController@getIndex');
 Route::get('leaked','PagesController@getLeaked');
+Route::get('articles','PagesController@getArticles');
+Route::resource('albums','AlbumsController');
+
