@@ -87,4 +87,5 @@
                     </li>
                 </ul>
             </div>
+    </div>
 @endsection

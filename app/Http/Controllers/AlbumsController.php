@@ -32,7 +32,7 @@ class AlbumsController extends Controller
      */
     public function create()
     {
-        $this->getXmlData();
+//        $this->getXmlData();
         return view('albums.create');
     }
 
@@ -97,7 +97,8 @@ class AlbumsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $album = Album::find($id);
+        return view('albums.edit')->withAlbum($album);
     }
 
     /**
@@ -120,7 +121,12 @@ class AlbumsController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $album = Album::find($id);
+
+        $album->delete();
+
+        return redirect()->route('albums.index');
     }
 
     public function getXmlData(){
@@ -135,9 +141,9 @@ class AlbumsController extends Controller
         $albumnames = array();
 
 
-        DB::table('albums')
-            ->where('id', 2)
-            ->update(['title' => $item->title]);
+//        DB::table('albums')
+//            ->where('id', 2)
+//            ->update(['title' => $item->title]);
 
         foreach($item as $album)
         {
@@ -149,12 +155,21 @@ class AlbumsController extends Controller
 
 
 
-            $title = $album->title;
+            $artist= substr($album->title,0,strpos(strval($album->title),':')-1);
+            $title = substr(strval($album->title),strpos(strval($album->title),':')+1);
+            $released = $album->pubdate;
+
+//            go through all genre tags and concatenate them together
+            $genre = $album->category;
+
+            $description = $album->description;
+
 //            DB::table('albums')->firstOrCreate(['title'=>'asdf']);
 
 
 //            DB::table('albums')->insert([
-//                ['title' => $title, 'artist' => $title,'released'=>'01.01.2001','albumURL'=>'thisisurl',],
+//                ['title' => $title, 'artist' => $artist,'released'=>'10.10.2010','albumURL'=>'thisisurl','genre'=>$genre,
+//                'description'=>$description],
 //            ]);
         }
 

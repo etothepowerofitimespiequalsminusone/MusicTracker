@@ -19,3 +19,7 @@ Route::get('leaked','PagesController@getLeaked');
 Route::get('articles','PagesController@getArticles');
 Route::resource('albums','AlbumsController');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
