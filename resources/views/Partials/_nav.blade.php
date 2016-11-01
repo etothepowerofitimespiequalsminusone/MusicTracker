@@ -18,7 +18,7 @@
                     <a href="/albums">Albums</a>
                 </li>
                 <li class="">
-                    <a href="">Coming soon</a>
+                    <a href="/itunes">Itunes</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-left" role="search" method="get" action="#">
@@ -39,9 +39,9 @@
                         <li><a href="{{ Auth::logout() }}"> Logout</a></li>
                     </ul>
                 </li>
-                 @else
+                @else
                     <li><a href="{{ url('login')}}">Login</a></li>
-                 @endif
+                @endif
             </ul>
 
             {{--<ul class="nav navbar-nav navbar-right">--}}

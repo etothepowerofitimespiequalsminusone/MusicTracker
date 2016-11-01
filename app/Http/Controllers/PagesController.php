@@ -3,6 +3,8 @@
 namespace musictracker\Http\Controllers;
 
 
+use Illuminate\Support\Facades\Input;
+
 class PagesController extends Controller
 {
     public function getIndex(){
@@ -43,5 +45,34 @@ class PagesController extends Controller
 
         return $albumnames;
 
+    }
+    public function getItunes(){
+
+        $term = Input::get('term');
+        $results = $this->searchItunes($term);
+
+        return view('pages.itunes')->withResults($results);
+    }
+
+    public function searchItunes($keyword){
+        $entity = 'musicArtist';
+        $attribute = 'artistTerm';
+        $tags = $keyword;
+        $url_data = array(
+            'entity'=>$entity,
+            'attribute'=>$attribute,
+            'term'=>$tags
+        );
+        $url_beg = 'https://itunes.apple.com/search?';
+        $url_tags = http_build_query($url_data);
+        $url_full = $url_beg . $url_tags;
+
+
+        $file = file_get_contents($url_full);
+        $json_data = json_decode($file);
+
+        $results = $json_data->results;
+
+        return $results;
     }
 }
