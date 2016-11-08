@@ -47,10 +47,14 @@ button{
 .dropdown-menu{
     background-color: #212121;
 }
+
 .table-background{
     background-color: white;
 }
-
+.table-hover > tbody > tr:hover {
+    background-color: #D2D2D2;
+    cursor: pointer;
+}
 
 .panel{
     /*background-color: #212121;*/
@@ -108,5 +112,10 @@ img
   flex: 1;
 }
 
+
+.results{
+    text-decoration: none;
+
+}
 
 

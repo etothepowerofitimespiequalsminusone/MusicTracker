@@ -26,9 +26,10 @@
                     @if(empty($results))
                         <h3>did not find anything that matches your search</h3>
                     @else
-                    <ul>
+                    <ul class="results">
                         @foreach($results as $result)
-                            <a href="{{ $result->artistLinkUrl }}"><li>{{ $result->artistName}}</li></a>
+                            <a href="{{ $result->collectionViewUrl }}">{{ $result->artistName }} : {{ $result->collectionName}}</a>
+                            <img src="{{ $result->artworkUrl100 }}"/>
                         @endforeach
                     </ul>
                     @endif

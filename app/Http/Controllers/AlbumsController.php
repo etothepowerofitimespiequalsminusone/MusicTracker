@@ -21,6 +21,7 @@ class AlbumsController extends Controller
     {
 
         $albums = Album::paginate(10);
+        $this->getXmlData();
 
         return view('albums.index')->withAlbums($albums);
     }
@@ -32,7 +33,7 @@ class AlbumsController extends Controller
      */
     public function create()
     {
-//        $this->getXmlData();
+        $this->getXmlData();
         return view('albums.create');
     }
 
@@ -58,6 +59,8 @@ class AlbumsController extends Controller
         $album->artist = $request->artist;
         $album->released = $request->released;
         $album->albumUrl = $request->albumUrl;
+        $album->genre = $request->genre;
+        $album->description = $request->description;
         $album->save();
 
         Session::flash('success','Album was successfully saved');
@@ -148,27 +151,33 @@ class AlbumsController extends Controller
         foreach($item as $album)
         {
             $albumnames[] = $album->title;
-
             //check if album isn't in the database
+
 
             //if it isn't then add insert
 
-
-
             $artist= substr($album->title,0,strpos(strval($album->title),':')-1);
             $title = substr(strval($album->title),strpos(strval($album->title),':')+1);
-            $released = $album->pubdate;
+            $published_date = strtotime($album->pubdate);
+            $released = date('Y-m-d', $published_date);
+
+
+            //find the cover in itunes store
+//            $keyword = $artist ." ". $title;
+//            $result = $this->searchItunes($keyword);
+//            $albumUrl = $result->collectionViewUrl;
+            $albumUrl = strval($album->link);
 
 //            go through all genre tags and concatenate them together
-            $genre = $album->category;
+            $genre = strval($album->category);
+            $description = strval($album->description);
 
-            $description = $album->description;
-
-//            DB::table('albums')->firstOrCreate(['title'=>'asdf']);
-
-
+            // if the album is not in the database, then save it
+               Album::firstOrCreate(array('title'=>$title, 'artist'=>$artist,'released'=>$released,'albumURL'=>$albumUrl,'genre'=>$genre,
+                'description'=>$description));
+//this was for testing purposes
 //            DB::table('albums')->insert([
-//                ['title' => $title, 'artist' => $artist,'released'=>'10.10.2010','albumURL'=>'thisisurl','genre'=>$genre,
+//                ['title' => $title, 'artist' => $artist,'released'=>$released,'albumURL'=>$albumUrl,'genre'=>$genre,
 //                'description'=>$description],
 //            ]);
         }
@@ -178,4 +187,39 @@ class AlbumsController extends Controller
         return $albumnames;
 
     }
+
+    public function searchItunes($keyword){
+        $entity = 'album';
+        $attribute = 'albumTerm';
+//        $tags = $keyword;
+        $url_data = array(
+            'entity'=>$entity,
+            'term'=>$keyword
+        );
+        //https://itunes.apple.com/search?entity=album&term=self-titled-darknet
+        $url_beg = 'https://itunes.apple.com/search?';
+        $url_tags = http_build_query($url_data);
+        $url_full = $url_beg . $url_tags;
+
+
+        $file = file_get_contents($url_full);
+        $json_data = json_decode($file);
+
+        $results = $json_data->results;
+
+        return $results;
+    }
+    public function findCover(){
+        $albums = Album::all();
+
+        foreach ($albums as $album){
+            $keyword = $album->title . " " . $album->artist;
+            $result = $this->searchItunes($keyword);
+            $cover = $result[0]->collectionViewUrl;
+
+        }
+    }
+
+
+
 }

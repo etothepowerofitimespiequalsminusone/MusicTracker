@@ -8,4 +8,14 @@
         $(".rslides").responsiveSlides();
     });
 
+
+    // makes the rows in the table clickable
+    $('document').ready(function () {
+        $('.clickable-row').click(function () {
+            window.document.location = $(this).data("href");
+        });
+    });
+
+
+
 </script>

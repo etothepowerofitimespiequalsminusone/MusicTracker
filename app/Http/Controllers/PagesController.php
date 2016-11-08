@@ -4,11 +4,17 @@ namespace musictracker\Http\Controllers;
 
 
 use Illuminate\Support\Facades\Input;
+use musictracker\Album;
 
 class PagesController extends Controller
 {
     public function getIndex(){
-        return view('pages.index');
+
+//        $albums = Album::all();
+        $albums = Album::paginate(12);
+
+
+        return view('pages.index')->withAlbums($albums);
     }
 
     public function getArticles(){
@@ -55,14 +61,14 @@ class PagesController extends Controller
     }
 
     public function searchItunes($keyword){
-        $entity = 'musicArtist';
-        $attribute = 'artistTerm';
-        $tags = $keyword;
+        $entity = 'album';
+        $attribute = 'albumTerm';
+//        $tags = $keyword;
         $url_data = array(
             'entity'=>$entity,
-            'attribute'=>$attribute,
-            'term'=>$tags
+            'term'=>$keyword
         );
+    //https://itunes.apple.com/search?entity=album&term=self-titled-darknet
         $url_beg = 'https://itunes.apple.com/search?';
         $url_tags = http_build_query($url_data);
         $url_full = $url_beg . $url_tags;
@@ -75,4 +81,15 @@ class PagesController extends Controller
 
         return $results;
     }
+    public function findCover(){
+        $albums = Album::all();
+
+        foreach ($albums as $album){
+            $keyword = $album->title . " " . $album->artist;
+            $result = $this->searchItunes($keyword);
+            $cover = $result[0]->collectionViewUrl;
+
+        }
+    }
+
 }
